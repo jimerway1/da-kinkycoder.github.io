@@ -1,7 +1,11 @@
-body {
-	font-family:'Verdana','Arial';
-	font-size:12px
+html {
+height:100%;
+overflow-x:hidden;
+-webkit-overflow-scrolling:touch;
 }
+
+body {
+
 
 h2 {
 	padding:0;
@@ -324,28 +328,38 @@ td + td { border-left-style:none }
 	font-size:14px
 }
 
+@media (max-width: 768px) {
 .overlay {
-	position:fixed;
-	top:0;
-	left:0;
-	right:0;
-	bottom:0;
-	background-color:rgba(0,0,0,0.8);
-	display:none
+position:absolute;
+min-height:100vh;
+}
 }
 
+
 #EditOverlay #Kinks {
-  width: 60%;
-  min-height: calc(100vh - 70px);   /* fallback for older browsers */
-  min-height: calc(100dvh - 70px);  /* modern, overrides the line above */
-  min-width: 330px;
-  position:fixed;
-  top: 15px;
-  left: 20%;
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  border-radius:5px;
-  font-family:monospace,'Courier new',Courier;
+width:60%;
+min-height:calc(100vh - 70px);
+min-height:calc(100dvh - 70px);
+min-width:330px;
+position:fixed;
+top:15px;
+left:20%;
+overflow:auto;
+-webkit-overflow-scrolling:touch;
+border-radius:5px;
+font-family:monospace,'Courier new',Courier;
+}
+
+@media (max-width: 768px) {
+#EditOverlay #Kinks {
+position:absolute;
+top:15px;
+left:5%;
+width:90%;
+min-width:auto;
+max-height:calc(100vh - 70px);
+max-height:calc(100dvh - 70px);
+}
 }
 
 #EditOverlay #KinksOK {
