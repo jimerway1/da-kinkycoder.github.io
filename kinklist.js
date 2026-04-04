@@ -199,19 +199,28 @@ $(function(){
             // On resize, redo columns
             (function(){
 
-                var lastResize = 0;
-                $(window).on('resize', function(){
-                    var curTime = (new Date()).getTime();
-                    lastResize = curTime;
-                    setTimeout(function(){
-                        if(lastResize === curTime) {
-                            inputKinks.fillInputList();
-                            inputKinks.parseHash();
-                        }
-                    }, 500);
-                });
+    var lastResize = 0;
+    var lastWidth = window.innerWidth;
 
-            })();
+    $(window).on('resize', function(){
+        var curTime = Date.now();
+        lastResize = curTime;
+        setTimeout(function(){
+            if(lastResize !== curTime) return;
+
+            var newWidth = window.innerWidth;
+            var widthChanged = Math.abs(newWidth - lastWidth) > 80;
+            lastWidth = newWidth;
+
+            if(!widthChanged) return;
+
+            var selection = inputKinks.saveSelection();
+            inputKinks.fillInputList();
+            inputKinks.restoreSavedSelection(selection);
+        }, 500);
+    });
+
+})();
         },
         hashChars: "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-_.=+*^!@",
         maxPow: function(base, maxVal) {
@@ -788,14 +797,18 @@ $(function(){
                         $btn.addClass('selected');
                     }
 
-                    $btn.on('click', function(){
-                        $container.find('.big-choice').removeClass('selected');
-                        $btn.addClass('selected');
-                        kink.value = text;
-                        $options.fadeOut(200, function(){
-                            $options.show();
-                            inputKinks.inputPopup.showNext();
-                        });
+$btn.on('click', function(){
+    $container.find('.big-choice').removeClass('selected');
+    $btn.addClass('selected');
+    kink.value = text;
+
+    var choiceClass = strToClass(text);
+    kink.$choices.find('.choice').removeClass('selected');
+    kink.$choices.find('.' + choiceClass).addClass('selected');
+    setHashSilently(inputKinks.updateHash());
+
+    inputKinks.inputPopup.showNext();
+});
                         var choiceClass = strToClass(text);
                         kink.$choices.find('.' + choiceClass).click();
                     });
@@ -820,12 +833,13 @@ $(function(){
 
                 // Current
                 var currentKink = inputKinks.inputPopup.kinkByIndex(index);
-                var $currentKink = inputKinks.inputPopup.generatePrimary(currentKink);
-                $options.append($currentKink);
-                $category.text(currentKink.category);
-                var label = $field.text((currentKink.showField ? '(' + currentKink.field + ') ' : '') + currentKink.kink.name);
-                if(currentKink.kink.desc) {showDescriptionButton(currentKink.kink.desc, label);}
-                $options.append($currentKink);
+var currentKink = inputKinks.inputPopup.kinkByIndex(index);
+var $currentKink = inputKinks.inputPopup.generatePrimary(currentKink);
+$category.text(currentKink.category);
+var label = $field.text((currentKink.showField ? '(' + currentKink.field + ') ' : '') + currentKink.kink.name);
+if(currentKink.kink.desc) {showDescriptionButton(currentKink.kink.desc, label);}
+$options.append($currentKink);
+
 
                 // Prev
                 for(var i = inputKinks.inputPopup.numPrev; i > 0; i--){
