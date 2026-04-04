@@ -1,10 +1,16 @@
 html {
-height:100%;
-overflow-x:hidden;
--webkit-overflow-scrolling:touch;
+  height:100%;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
 }
 
 body {
+  font-family:'Verdana','Arial';
+  font-size:12px;
+  height:100%;
+  overflow-x:hidden;
+  -webkit-overflow-scrolling:touch;
+}
 
 
 h2 {
@@ -314,25 +320,35 @@ td + td { border-left-style:none }
 .KinkDesc:hover { opacity:1 }
 
 #Description {
-	box-sizing:border-box;
-	position:absolute;
-	width:330px;
-	left:50%;
-	bottom:50%;
-	resize:none;
-	background-color:#fff;
-	border-radius:5px;
-	margin-left:-165px;
-	padding:10px;
-	font-family:'Verdana','Arial';
-	font-size:14px
+    box-sizing:border-box;
+    position:absolute;
+    width:330px;
+    left:50%;
+    bottom:50%;
+    resize:none;
+    background-color:#fff;
+    border-radius:5px;
+    margin-left:-165px;
+    padding:10px;
+    font-family:'Verdana','Arial';
+    font-size:14px
+}
+
+.overlay {
+  position:fixed;
+  top:0;
+  left:0;
+  right:0;
+  bottom:0;
+  background-color:rgba(0,0,0,0.8);
+  display:none;
 }
 
 @media (max-width: 768px) {
-.overlay {
-position:absolute;
-min-height:100vh;
-}
+  .overlay {
+    position:absolute;
+    min-height:100vh;
+  }
 }
 
 
