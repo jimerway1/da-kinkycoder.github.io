@@ -809,8 +809,6 @@ $btn.on('click', function(){
 
     inputKinks.inputPopup.showNext();
 });
-                        var choiceClass = strToClass(text);
-                        kink.$choices.find('.' + choiceClass).click();
                     });
                 });
                 return $container;
@@ -833,7 +831,6 @@ $btn.on('click', function(){
 
                 // Current
                 var currentKink = inputKinks.inputPopup.kinkByIndex(index);
-var currentKink = inputKinks.inputPopup.kinkByIndex(index);
 var $currentKink = inputKinks.inputPopup.generatePrimary(currentKink);
 $category.text(currentKink.category);
 var label = $field.text((currentKink.showField ? '(' + currentKink.field + ') ' : '') + currentKink.kink.name);
